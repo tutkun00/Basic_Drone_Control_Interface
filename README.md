@@ -9,6 +9,7 @@ Programın 3 işlevi vardır:
     -Drone "LAND" moduna alınır ve yere iner.Yere indiğinde arm durumundan çıkarılır.
  Not: Bütün işlemlerden sonra ana menüye geri dönülür ve istenilen işlemin yapılmasına olanak verilir.
  Not2: Bu proje 2. sınıfa yeni geçmiş bir Bilgisayar Mühendisliği öğrencisinin yaptığı bir projedir.Teknik aksaklıklar olasılıklar dahilinde bulundurulmalıdır.
+ Not3: Program çalıştırılmadan önce Python MAVLink ve Dronekit kütüphanelerinin yüklü olması gereklidir.
 
 The program has 3 functions:
  1-Arming the drone and lifting it to a certain height.
@@ -18,4 +19,5 @@ The program has 3 functions:
  3-Landing and unarming the drone.
     -The drone is put into "LAND" mode and lands on the ground. When it lands on the ground, it is taken out of arm state.
  Note: After all operations, you can return to the main menu and perform the desired operation.
- Note2: This project is a project made by a Computer Engineering student who has just passed the 2nd year. Technical glitches should be kept within the scope of possibility.
+ Note2: This project is a project made by a Computer Engineering student who has just passed the 2nd year.Technical glitches should be kept within the scope of possibility.
+ Note3: Python MAVLink and Dronekit libraries must be installed before running the program.
