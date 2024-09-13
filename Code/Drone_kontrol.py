@@ -1,8 +1,10 @@
 import dronekit 
 import time
 
+
 drone = dronekit.connect("127.0.0.1:14550", wait_ready=True)
 while True:
+    print(f"Drone Battery: {drone.battery.level}")
     print("DRONU ARM ETME VE KALDIRMA(1)")
     print("DRONE'U HAREKET ETTİRME(2)")
     print("LAND MODE VE KAPATMA(3)")
@@ -10,8 +12,11 @@ while True:
     msecim=input("Hangi seçeneği seçiyorsunuz?:")
     #DRONE'U ARM ETME VE KALKIŞ
     if msecim=="1":
+      if drone.armed==False: 
         while True:
-           if drone.is_armable is True: 
+           if drone.is_armable is True:
+            print("Drone arm edilebilir durumda")
+            time.sleep(1)   
             drone.mode=dronekit.VehicleMode("GUIDED")
             time.sleep(2)
             print("GUIDED mod'a alındı.")
@@ -25,7 +30,7 @@ while True:
                 try:
                     att=float(att)
                     if att>150 or att<=0:
-                        raise Exception("Kalkış yüksekliği 0 değerinden küçük veya 150 değerinden büyük olamaz!")
+                        raise Exception("Kalkış yüksekliği 0 değerinden küçük ve eşit veya 150 değerinden büyük olamaz!")
                 except ValueError:
                     print("Lütfen pozitif bir sayi giriniz!")
                     continue
@@ -51,13 +56,17 @@ while True:
               while drone.is_armable is False:
                  print("Drone arm edilebilir hale getiriliyor...")
                  time.sleep(1) 
+      else:
+         print("Drone zaten arm edilmiş durumda!")
+         print("Ana menüye dönülüyor...")
+         time.sleep(1.5)       
 
 
     #DRONE'U BELİRLİ BİR KONUMA HAREKET ETTİRME
     elif msecim=="2":
       while True:
         if drone.armed is False or drone.location.global_relative_frame.alt<=0:
-           print("Drone arm edilmiş durumda değil veya kaldırılmamış!")
+           print("Drone arm edilmiş durumda değil ve kaldırılmamış!")
            print("Lütfen ilk 1.işlemi deneyin!")
            print("Ana menüye dönülüyor...")
            time.sleep(1.5)
@@ -90,7 +99,7 @@ while True:
           konum=dronekit.LocationGlobalRelative(konumx,konumy,konumz) 
           drone.simple_goto(konum) 
           print("Drone belirtilen konuma gidiyor...")
-          while abs(konumx-drone.location.global_relative_frame.lat)>0.5 or abs(konumy-drone.location.global_relative_frame.lon)>0.5 or abs(konumz-drone.location.global_relative_frame.alt)>0.5:
+          while abs(konumx-drone.location.global_relative_frame.lat)>0.5 or abs(konumy-drone.location.global_relative_frame.lon)>0.5 or abs(konumz-drone.location.global_relative_frame.alt):
              print(f"Drone'un anlık konumu x:{drone.location.global_relative_frame.lat} y:{drone.location.global_relative_frame.lon} z:{drone.location.global_relative_frame.alt}")
              time.sleep(1) 
           print("Drone belirtilen konuma ulaştı.")   
@@ -99,21 +108,29 @@ while True:
           break     
     #LAND MODU VE KAPATMA         
     elif msecim=="3":
+     if drone.armed==True: 
       print("Drone LAND moduna alınıyor...")
       drone.mode=dronekit.VehicleMode("LAND")
       print("Drone yere iniyor...")
       time.sleep(1)
-      while drone.location.global_relative_frame.alt>0.5:
+      while drone.location.global_relative_frame.alt>0:
         print(f"Drone yüksekliği: {drone.location.global_relative_frame.alt}")
         time.sleep(1) 
-      while drone.armed==True: 
-       drone.armed=False
-       time.sleep(1)
-       if drone.armed==False:
+      while True: 
+        drone.armed=False
+        time.sleep(1)
+        if drone.armed==False:
          print("Drone arm durumundan çıkarıldı!")
+         break 
       time.sleep(1)   
       print("Ana menüye dönülüyor...") 
       time.sleep(1.5)
+     else:
+        print("Drone arm edilmemiş ve kaldırılmamış!")
+        print("Lütfen ilk 1.işlemi deneyin!")
+        print("Ana menüye dönülüyor...")
+        time.sleep(1.5)
+      
       
         
     #ANA MENÜDEN ÇIKIŞ     
