@@ -90,7 +90,7 @@ while True:
           konum=dronekit.LocationGlobalRelative(konumx,konumy,konumz) 
           drone.simple_goto(konum) 
           print("Drone belirtilen konuma gidiyor...")
-          while konumx!=drone.location.global_relative_frame.lat and konumy!=drone.location.global_relative_frame.lon and konumz!=drone.location.global_relative_frame.alt:
+          while abs(konumx-drone.location.global_relative_frame.lat)>0.5 or abs(konumy-drone.location.global_relative_frame.lon)>0.5 or abs(konumz-drone.location.global_relative_frame.alt)>0.5:
              print(f"Drone'un anlık konumu x:{drone.location.global_relative_frame.lat} y:{drone.location.global_relative_frame.lon} z:{drone.location.global_relative_frame.alt}")
              time.sleep(1) 
           print("Drone belirtilen konuma ulaştı.")   
