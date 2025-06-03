@@ -21,3 +21,4 @@ The program has 3 functions:
  Note: After all operations, you can return to the main menu and perform the desired operation.
  Note2: This project is a project made by a Computer Engineering student who has just passed the 2nd year.Technical glitches should be kept within the scope of possibility.
  Note3: Python MAVLink and Dronekit libraries must be installed before running the program.
+ [](https://yandex.com.tr/gorsel/search?from=tabbar&img_url=https%3A%2F%2Fwww.enriquedans.com%2Fwp-content%2Fuploads%2F2016%2F01%2FSolo-smart-drone.jpg&lr=11504&pos=2&rpt=simage&text=DRONE)
